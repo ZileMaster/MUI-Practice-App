@@ -1,16 +1,48 @@
 import React from "react";
 import './App.css';
 import SideMenu from "../SideMenu";
-import {makeStyles} from '@material-ui/core';
+import {makeStyles, ThemeProvider} from '@material-ui/core';
 import Header from "../Header";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PageHeader from "../PageHeader";
-import PeopleOutlineTwoToneIcon from "@material-ui/icons/PeopleOutlineTwoTone"
+import { createMuiTheme } from "@material-ui/core";
+import Employees from "../Pages/Employees/Employees";
+
+const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: "#333996",
+        light: '#3c44b126'
+      },
+      secondary: {
+        main: "#f83245",
+        light: '#f8324526'
+      },
+      background: {
+        default: "#f4f5fd"
+      },
+    },
+    overrides:{
+      MuiAppBar:{
+        root:{
+          transform:'translateZ(0)'
+        }
+      }
+    },
+    props:{
+      MuiIconButton:{
+        disableRipple:false
+      }
+    }
+  })
 
 const useStyles = makeStyles({
     appMain: {
-        paddingLeft: '320px',
+        paddingLeft: '15%',
         width: '100%'
+    },
+    appWhole: {
+      minWidth: '330px'
     }
 })
 
@@ -19,17 +51,14 @@ function App(){
 
     return(
         <>   
-            
-            <SideMenu />
-            <div className={classes.appMain}>        
-                <Header />
-                <PageHeader 
-                 title="Page Header" 
-                 subtitle="Page description"
-                 icon={<PeopleOutlineTwoToneIcon fontSize="large"/>} />
-            </div>
-            <CssBaseline/>
-
+            <ThemeProvider theme={theme} className={classes.appWhole}>
+                <SideMenu />
+                <div className={classes.appMain}>        
+                    <Header />
+                    <Employees />
+                </div>
+                <CssBaseline/>
+            </ThemeProvider>
         </>
     );
 }

@@ -47,6 +47,18 @@ function EmployeeForm(){
                             value={values1.email}
                             onChange={handleInputChange}
                         />
+                        <Controls.Input
+                            label="Mobile"
+                            name="mobile"
+                            value={values1.mobile}
+                            onChange={handleInputChange}
+                        />
+                        <Controls.Input
+                            label="City"
+                            name="city"
+                            value={values1.city}
+                            onChange={handleInputChange}
+                        />
                     </Grid>
                     <Grid item xs={6}>
                         <Controls.RadioGroup 
@@ -63,6 +75,29 @@ function EmployeeForm(){
                             onChange={handleInputChange}
                             options={employeeService.getDepartmentCollection()}
                             />  
+                            <Controls.DatePicker 
+                                name="hireDate"
+                                label="Hire date"
+                                value={values1.hireDate}
+                                onChange={handleInputChange}
+                            />
+                            <Controls.Checkbox
+                                name="isPermanent"
+                                label="Permanent Employee"
+                                value={values1.isPermanent}
+                                onChange={handleInputChange}
+                            />
+                            <div>
+                                <Controls.Button
+                                    type="submit"
+                                    text="Submit"
+                                />
+                                <Controls.Button
+                                    color="secondary"
+                                    text="Reset"
+                                />
+
+                            </div>
                     </Grid>
                 </Grid> 
             </Form>

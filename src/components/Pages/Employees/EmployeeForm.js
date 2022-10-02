@@ -3,6 +3,7 @@ import { FormControl, FormControlLabel, FormLabel, Grid, makeStyles, RadioGroup,
 import { useForm, Form } from "../../useForm";
 import Controls from "../../controls/Controls";
 import * as employeeService from "../../../Services/employeeService"
+import { e } from "mathjs";
 
 const genderItems = [
     {id: 'male', title:'Male'},
@@ -23,16 +24,37 @@ const initialFValues = {
 
 function EmployeeForm(){
        
+    const validate = () => {
+        let temp = {}
+        temp.full_Name = values1.full_Name?"" : "Required field!"
+        temp.email = (/$|.+@.+..+/).test(values1.email)?"" : "Email not valid!"
+        temp.mobile = values1.mobile.length>9?"" : "Minimum 10 numbers!"
+        temp.departmentId = values1.departmentId.length!=0?"" : "Required field!"
+        setErrors({
+            ...temp
+        })
+
+        return Object.values(temp).every(x => x == "") //kul funkcija every()
+    }
+
     const {
         values, 
         setValues, 
+        errors, 
+        serErrors,
         handleInputChange 
     } = useForm(initialFValues);
     
     const values1 = {...values}
 
+    const handleSubmit = e => {
+        e.preventDefault();
+        if(validate())
+        window.alert("testering!");
+    }
+
     return(
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 <Grid container>
                     <Grid item xs={6}>
                         <Controls.Input 
@@ -40,18 +62,21 @@ function EmployeeForm(){
                         label="Full Name"
                         value={values1.full_Name}
                         onChange={handleInputChange}
+                        error={errors.full_Name}//????
                         />
                         <Controls.Input
                             label="Email"
                             name="email"
                             value={values1.email}
                             onChange={handleInputChange}
+                            error={errors.email}//????
                         />
                         <Controls.Input
                             label="Mobile"
                             name="mobile"
                             value={values1.mobile}
                             onChange={handleInputChange}
+                            error={errors.mobile}//????
                         />
                         <Controls.Input
                             label="City"
